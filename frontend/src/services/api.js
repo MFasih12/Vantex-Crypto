@@ -14,8 +14,34 @@ const api = axios.create({
   },
 });
 
-// Rest of your code stays exactly the same (interceptors, authAPI, etc.)
-// ... [your interceptors and authAPI code unchanged]
+// Request interceptor to add Authorization header from localStorage
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor to handle 401 errors (token expired/invalid)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token is invalid or expired
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      // Optionally redirect to login page
+      // window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Auth API - no need to add /api here anymore!
 export const authAPI = {
