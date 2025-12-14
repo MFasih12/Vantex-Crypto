@@ -1,0 +1,31 @@
+# Node.js common ignores (applies to both frontend and backend)
+**/node_modules/
+**/dist/
+**/build/
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Logs and caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+.pnpm-debug.log*
+**/coverage/
+**/.nyc_output/
+
+# Build artifacts (common for many frameworks)
+**/.next/      # Next.js (if using)
+**/out/        # Next.js export
+**/.vite/      # Vite
+**/.cache/
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Other common
+*.swp
+*.tmp
